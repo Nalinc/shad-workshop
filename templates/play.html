@@ -1,0 +1,59 @@
+<html>
+	<head>
+		<script type="text/javascript" src="js/jquery.js"></script>	
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+	<body>
+		<div class="container wrapper">
+			<h2>Type something to make the robot speak</h2>
+			<textarea id="speech" placeholder="type something..."> </textarea>   
+			<a hred="#" id="speech_trigger" class="btn btn-success">Speak</a>
+			<a hred="#" id="speech_save" class="btn btn-danger">Save</a>
+			<a href="/" id="reconfigure" class="btn btn-default">Re-Configure</a>
+			
+			<br/>
+			<div class="saved_speech_container">
+				<h4>Saved Dialogs</h4>
+				<ul id="saved_speech">
+					
+				</ul>				
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				window.saved_speech=[]
+				$(document).on("click","#speech_trigger", function(){
+					msg = $("#speech").val()
+					$.get( "/say",{"msg":msg}, function( data ) {
+						if(data.success){
+					  		$("#speech").val("")
+						}
+						else{
+							alert(data.msg)
+						}
+					});
+				})
+				$(document).on("click",".speak", function(e){
+					msg = e.target.innerHTML
+					$.get( "/say",{"msg":msg}, function( data ) {
+						if(data.success){
+					  		$("#speech").val("")
+						}
+						else{
+							alert(data.msg)
+						}
+					});
+				})
+				$(document).on("click","#speech_save", function(){
+					msg = $("#speech").val()
+					saved_speech.push(msg)
+					li = $("<li>")
+					li.html(msg).addClass("btn btn-default speak")
+					$("#saved_speech").append(li)
+					$("#speech").val("")
+				})
+			})
+		</script>
+	</body>
+</html>

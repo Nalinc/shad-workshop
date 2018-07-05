@@ -1,0 +1,24 @@
+html, body{
+	margin: 0;
+}
+
+.container.wrapper{
+    text-align: center;
+}
+
+.container textarea{
+	width: 500px;
+	height: 300px;
+	display: block;
+	float: none;
+	margin: 20px auto;
+	padding: 20px;
+}
+
+.saved_speech_container{
+	margin-top: 50px;
+    text-align: left;
+}
+.saved_speech_container ul#saved_speech li.speak{
+	margin: 10px;
+}
